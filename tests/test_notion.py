@@ -1,3 +1,4 @@
+import base64
 import copy
 import hashlib
 import io
@@ -182,6 +183,61 @@ class NotionFailureTests(unittest.TestCase):
         api.request = lambda *a, **kw: {'results': [], 'has_more': True, 'next_cursor': 'loop'}
         with self.assertRaises(NotionError):
             api.children(ROOT)
+
+    def text_seed(self, transform=None):
+        self.store.import_backup(backup(), dry_run=False)
+        page = next(iter(self.api.pages.values()))
+        code = next(b for b in page['children'] if b['type'] == 'code')
+        manifest = json.loads(code['code']['rich_text'][0]['text']['content'])
+        original_part = next(iter(self.api.uploads.values()))
+        with zipfile.ZipFile(io.BytesIO(original_part)) as archive:
+            raw = archive.read('snapshot.part')
+        manifest['parts'] = []
+        page['children'] = [b for b in page['children'] if b['type'] != 'file']
+        midpoint = len(raw) // 2
+        for i, chunk in enumerate((raw[:midpoint], raw[midpoint:])):
+            data = json.dumps({'format': 'listening-notion-part-1', 'data': base64.b64encode(chunk).decode()}).encode()
+            if transform:
+                data = transform(data)
+            name = f'part-{i:03d}.json'
+            ident = self.api.upload(name, data)
+            manifest['parts'].append({'name': name, 'encoding': 'base64-json', 'sha256': hashlib.sha256(data).hexdigest()})
+            page['children'].append({'type': 'file', 'file': {'name': name, 'type': 'file', 'file': {'url': 'https://files.notion.so/' + ident}}})
+        code['code']['rich_text'][0]['text']['content'] = json.dumps(manifest)
+
+    def test_text_seed_lossless_read_and_next_zip_save(self):
+        self.text_seed()
+        fresh = NotionStore('', ROOT, api=self.api)
+        exported, photos = read_backup(fresh.export())
+        original, _ = read_backup(backup())
+        self.assertEqual(exported['records'], original['records'])
+        self.assertEqual(exported['histories'], original['histories'])
+        self.assertEqual(photos[0][1], PHOTO)
+        note = fresh.get('note', 'note-1')
+        fresh.save('note', dict(note, content='after text seed'), expected_revision=2)
+        newest = NotionStore('', ROOT, api=self.api)
+        self.assertEqual(newest.get('note', 'note-1')['content'], 'after text seed')
+        self.assertEqual(newest.photo('note-1')[0], PHOTO)
+        self.assertEqual(newest.revisions('note', 'note-1')[0]['note'], note)
+
+    def test_invalid_base64_and_oversized_text_parts_rejected(self):
+        self.text_seed(lambda data: data.replace(b'"data": "', b'"data": "!'))
+        with self.assertRaises(NotionError):
+            NotionStore('', ROOT, api=self.api).export()
+        self.setUp()
+        self.text_seed(lambda data: data + b' ' * (200 * 1024))
+        with self.assertRaises(NotionError):
+            NotionStore('', ROOT, api=self.api).export()
+
+    def test_text_encoding_extension_mismatch_rejected(self):
+        self.text_seed()
+        page = next(iter(self.api.pages.values()))
+        code = next(b for b in page['children'] if b['type'] == 'code')
+        manifest = json.loads(code['code']['rich_text'][0]['text']['content'])
+        manifest['parts'][0]['encoding'] = 'zip'
+        code['code']['rich_text'][0]['text']['content'] = json.dumps(manifest)
+        with self.assertRaises(NotionError):
+            NotionStore('', ROOT, api=self.api).export()
 
 
 if __name__ == '__main__':
