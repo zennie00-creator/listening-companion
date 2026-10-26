@@ -25,6 +25,14 @@ def valid_password(password: str, encoded: str) -> bool:
         return False
 
 
+def valid_secret_password(password, configured):
+    """Optional direct password stored only in Streamlit Secrets, never in Git."""
+    if not isinstance(configured, str) or len(configured) < 12:
+        return False
+    return hmac.compare_digest(hashlib.sha256(password.encode()).digest(),
+                               hashlib.sha256(configured.encode()).digest())
+
+
 def setting(name: str, default=''):
     value = os.getenv(name)
     if value is not None:

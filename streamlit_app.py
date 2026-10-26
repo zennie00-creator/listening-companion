@@ -8,8 +8,9 @@ from pathlib import Path
 from urllib.parse import urlsplit, quote
 import streamlit as st
 from PIL import Image
-from listening.auth import setting, valid_password
+from listening.auth import setting, valid_password, valid_secret_password
 from listening.store import Store, Conflict, now
+from listening.notion_store import NotionStore, NotionError
 from listening.music import (MusicError, apple_albums, brainz_albums, manual_album,
                               plan_searches, photo_clues, normalize)
 
@@ -29,8 +30,8 @@ KINDS = ['감상 대화', '음악성', '녹음 품질', '내 시스템 재생', 
 
 
 @st.cache_resource
-def database(url):
-    return Store(url)
+def database(url, backend='postgres', notion_token='', notion_root=''):
+    return NotionStore(notion_token, notion_root) if backend == 'notion' else Store(url)
 
 
 @st.cache_data(ttl=21600, show_spinner=False)
@@ -465,25 +466,40 @@ def backup_page(store):
 def main():
     mode = setting('LC_DEPLOYMENT_MODE', 'cloud')
     url = setting('DATABASE_URL')
+    backend = setting('STORAGE_BACKEND', 'postgres').lower()
+    notion_token, notion_root = setting('NOTION_TOKEN'), setting('NOTION_PAGE_ID')
     if mode == 'local':
         (ROOT / 'data').mkdir(exist_ok=True)
-        url = url or 'sqlite:///' + str(ROOT / 'data/listening.sqlite3')
-    elif not url or not url.startswith(('postgres://', 'postgresql://', 'postgresql+psycopg://')):
+        if backend != 'notion':
+            url = url or 'sqlite:///' + str(ROOT / 'data/listening.sqlite3')
+    if backend == 'notion' and (not notion_token or not notion_root):
+        st.title('Listening Companion')
+        st.info('Notion 저장 연결이 필요합니다. 이 앱의 Secrets에 NOTION_TOKEN과 NOTION_PAGE_ID를 등록하고, Notion 페이지의 연결 메뉴에서 전용 연결을 추가해 주세요.')
+        st.stop()
+    if backend not in ('postgres', 'notion'):
+        st.error('STORAGE_BACKEND는 notion 또는 postgres로 설정해 주세요.')
+        st.stop()
+    if mode != 'local' and backend != 'notion' and (not url or not url.startswith(('postgres://', 'postgresql://', 'postgresql+psycopg://'))):
         st.title('Listening Companion')
         st.info('감상 기록을 영구 보관할 데이터베이스 연결이 필요합니다. 배포 안내에 따라 이 앱의 Secrets에 DATABASE_URL을 등록해 주세요.')
         st.caption('Streamlit Cloud의 임시 디스크에는 감상을 저장하지 않습니다.')
         st.stop()
+    if mode != 'local':
+        password_hash = setting('APP_PASSWORD_HASH')
+        direct_password = setting('APP_PASSWORD')
+        if not password_hash and len(direct_password) < 12:
+            st.info('개인 기록 보호를 위한 앱 비밀번호 설정이 필요합니다. 배포 안내를 확인해 주세요.')
+            st.stop()
     try:
-        store = database(url)
+        store = database(url, backend, notion_token, notion_root)
+    except NotionError as error:
+        st.error(str(error))
+        st.stop()
     except Exception:
         st.error('저장소에 연결하지 못했습니다. 연결 설정을 확인해 주세요. 비밀번호와 주소의 상세 값은 화면에 표시하지 않습니다.')
         st.stop()
     if mode != 'local':
-        password_hash = setting('APP_PASSWORD_HASH')
-        if not password_hash:
-            st.info('개인 기록 보호를 위한 앱 비밀번호 설정이 필요합니다. 배포 안내를 확인해 주세요.')
-            st.stop()
-        fingerprint = hashlib.sha256(password_hash.encode()).hexdigest()
+        fingerprint = hashlib.sha256((password_hash or direct_password).encode()).hexdigest()
         if st.session_state.get('authorized') != fingerprint:
             st.title('나만의 감상실에 오신 것을 환영합니다.')
             blocked = store.login_blocked()
@@ -493,7 +509,7 @@ def main():
             if blocked:
                 st.info(f'잠시 후 다시 시도해 주세요. 남은 대기 시간: {blocked}초')
             if entered:
-                success = valid_password(password, password_hash)
+                success = valid_password(password, password_hash) if password_hash else valid_secret_password(password, direct_password)
                 store.login_result(success)
                 if success:
                     st.session_state['authorized'] = fingerprint
@@ -506,18 +522,20 @@ def main():
     if st.session_state.get('pending_page'):
         st.session_state['page'] = st.session_state.pop('pending_page')
     page = st.sidebar.radio('감상실', pages, key='page')
-    if mode == 'local':
+    if backend == 'notion':
+        st.sidebar.caption('Notion에 원문·사진·수정 이력을 보관합니다.')
+    if mode == 'local' and backend != 'notion':
         st.sidebar.caption('로컬 전용 모드 · 이 컴퓨터의 SQLite에 저장')
-    elif st.sidebar.button('잠그기'):
+    elif mode != 'local' and st.sidebar.button('잠그기'):
         st.session_state.clear()
         st.rerun()
     st.sidebar.caption('음악성 · 녹음 품질 · 내 시스템 재생을 따로 기록합니다.')
     if st.session_state.get('notice'):
         st.success(st.session_state.pop('notice'))
-    notes = store.list('note')
-    environments = [e for e in store.list('environment') if not e.get('archived')]
     api_key, model = setting('OPENAI_API_KEY'), setting('OPENAI_MODEL', 'gpt-4.1-mini')
     try:
+        notes = store.list('note')
+        environments = [e for e in store.list('environment') if not e.get('archived')]
         if page == '오늘의 음악':
             discover(store, notes, api_key, model)
         elif page == '감상 기록':
@@ -541,7 +559,7 @@ def main():
                     with st.container(border=True):
                         st.caption(note.get('createdAt', '')[:10])
                         st.write(note.get('content', ''))
-    except (Conflict, MusicError) as error:
+    except (Conflict, MusicError, NotionError) as error:
         st.error(str(error))
     except Exception:
         st.error('작업을 완료하지 못했습니다. 기록은 저장소에 유지됩니다. 새로고침 후 확인해 주세요.')

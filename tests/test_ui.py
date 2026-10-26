@@ -16,7 +16,7 @@ class UITests(unittest.TestCase):
         self.AppTest = AppTest
         self.folder = tempfile.TemporaryDirectory()
         self.url = 'sqlite:///' + str(Path(self.folder.name) / 'ui.sqlite3')
-        self.env = patch.dict(os.environ, {'LC_DEPLOYMENT_MODE': 'local', 'DATABASE_URL': self.url, 'OPENAI_API_KEY': ''})
+        self.env = patch.dict(os.environ, {'LC_DEPLOYMENT_MODE': 'local', 'DATABASE_URL': self.url, 'OPENAI_API_KEY': '', 'STORAGE_BACKEND': 'postgres'})
         self.env.start()
         self.path = str(Path(__file__).resolve().parents[1] / 'streamlit_app.py')
 
@@ -49,6 +49,36 @@ class UITests(unittest.TestCase):
         self.assertEqual(len(at.exception), 0)
         self.assertTrue(any('영구 보관' in item.value for item in at.info))
         self.assertFalse(any('must-not-be-visible' in item.value for item in at.markdown))
+
+    def test_notion_missing_settings_never_falls_back_to_local_data(self):
+        Store(self.url).save('note', {'content': 'must-not-be-visible'})
+        with patch.dict(os.environ, {'LC_DEPLOYMENT_MODE': 'cloud', 'STORAGE_BACKEND': 'notion', 'NOTION_TOKEN': '', 'NOTION_PAGE_ID': ''}):
+            at = self.AppTest.from_file(self.path, default_timeout=30).run()
+        self.assertEqual(len(at.exception), 0)
+        self.assertTrue(any('NOTION_TOKEN' in item.value for item in at.info))
+        self.assertFalse(any('must-not-be-visible' in item.value for item in at.markdown))
+
+    def test_notion_cloud_login_and_save(self):
+        from test_notion import FakeNotion, ROOT
+        from listening.notion_store import NotionStore
+        api = FakeNotion()
+        store = NotionStore('', ROOT, api=api)
+        settings = {'LC_DEPLOYMENT_MODE': 'cloud', 'STORAGE_BACKEND': 'notion',
+                    'NOTION_TOKEN': 'synthetic-ci-only-token', 'NOTION_PAGE_ID': ROOT,
+                    'APP_PASSWORD': 'synthetic test password', 'APP_PASSWORD_HASH': ''}
+        with patch.dict(os.environ, settings), patch('listening.notion_store.NotionStore', return_value=store):
+            at = self.AppTest.from_file(self.path, default_timeout=30).run()
+            self.assertEqual(len(at.exception), 0)
+            self.assertEqual(len(at.sidebar.radio), 0)
+            next(w for w in at.text_input if w.label == '앱 비밀번호').set_value('synthetic test password')
+            next(w for w in at.button if w.label == '감상실 열기').click().run()
+            self.assertEqual(len(at.exception), 0)
+            at.sidebar.radio[0].set_value('감상 기록').run()
+            next(w for w in at.text_area if w.label == '감상').set_value('Notion 합성 테스트 감상')
+            next(w for w in at.button if w.label == '감상 저장하기').click().run()
+            self.assertEqual(len(at.exception), 0)
+            self.assertEqual(len(at.error), 0)
+        self.assertEqual(NotionStore('', ROOT, api=api).list('note')[0]['content'], 'Notion 합성 테스트 감상')
 
 
 if __name__ == '__main__':
