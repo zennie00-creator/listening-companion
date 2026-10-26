@@ -2,11 +2,13 @@
 
 감상 원문·사진·청취 환경·청음 실험을 개인 기록으로 보관하는 **별도 Streamlit 앱**입니다. 기존 일지 에이전트와 저장소, 데이터, 앱 설정을 공유하지 않습니다.
 
+**Notion을 사용하는 첫 배포는 [NOTION_SETUP.md](NOTION_SETUP.md)를 따라 진행합니다.** 아래 PostgreSQL 안내는 대안입니다. GitHub Merge 후에도 첫 Streamlit 앱 생성은 별도로 해야 합니다.
+
 ## 운영 구조
 
 - GitHub `zennie00-creator/listening-companion`: 코드와 PR·Merge 이력.
 - Streamlit Community Cloud: Python 앱 실행.
-- 사용자 소유 PostgreSQL: 감상, 사진 원본, 수정 이력을 영구 보관.
+- Notion 또는 사용자 소유 PostgreSQL: 감상, 사진 원본, 수정 이력을 영구 보관.
 - 기존 Listening Companion의 OpenAI API 키: 앱의 Secrets에만 등록.
 - 개인 백업 ZIP: GitHub에 올리지 않고 앱에서 직접 가져오기.
 
@@ -45,11 +47,11 @@ LC_DEPLOYMENT_MODE=local streamlit run streamlit_app.py --server.address 127.0.0
 3. 표시되는 감상·사진·이력·환경·실험 건수를 확인하고 **이 백업을 내 앱으로 가져오기**를 누릅니다.
 4. 감상 기록에서 긴 원문, 사진, 수정 이력을 확인합니다. 환경과 실험도 확인합니다.
 
-가져오기는 한 트랜잭션으로 처리됩니다. 동일한 기록은 중복 생성하지 않으며, 같은 ID의 다른 내용이 이미 있으면 전체 가져오기를 중단합니다. 과거 원문을 덮어쓰지 않습니다. 사진이 빠진 ZIP도 거부합니다.
+동일한 기록은 중복 생성하지 않으며, 같은 ID의 다른 내용이 이미 있으면 가져오기를 중단합니다. 과거 원문을 덮어쓰지 않습니다. 사진이 빠진 ZIP도 거부합니다. PostgreSQL은 한 트랜잭션으로 처리하며, Notion은 전체 백업을 검증한 새 저장본으로 보관합니다. Notion의 동시 저장 한계는 전용 안내를 확인합니다.
 
 Sites 내보내기를 앱 백업 형식으로 바꾸는 `scripts/convert_sites_backup.py`도 포함했습니다. 변환 대상은 인증된 기존 사이트에서 읽은 원문과 실제 사진 파일이어야 합니다. 화면에 일부가 생략된 데이터베이스 조회 결과는 전체 백업으로 사용하면 안 됩니다.
 
-## Streamlit Community Cloud에 별도 앱으로 배포
+## PostgreSQL을 선택한 경우의 별도 앱 배포
 
 **코드를 Merge하는 것만으로 최초 앱과 저장소가 자동 생성되지는 않습니다.** 첫 배포에서 아래 연결이 필요합니다.
 
@@ -72,7 +74,7 @@ python scripts/password_hash.py
 7. **Deploy** 후 앱 비밀번호로 접속하고 백업을 가져옵니다. 앱 공유 범위도 개인 사용에 맞게 제한합니다.
 8. 감상·사진·수정 이력과 새 기록 저장을 확인한 뒤 Sites 종료 여부를 결정합니다.
 
-Streamlit Cloud는 로컬 파일의 영구 보관을 보장하지 않습니다. 그래서 이 앱은 Cloud 모드에서 SQLite를 허용하지 않으며, 영구 DB가 설정되기 전에는 기록 화면을 열지 않습니다.
+Streamlit Cloud는 로컬 파일의 영구 보관을 보장하지 않습니다. 그래서 이 앱은 Cloud 모드에서 SQLite를 허용하지 않으며, Notion 또는 외부 PostgreSQL이 설정되기 전에는 기록 화면을 열지 않습니다. Notion을 선택한 경우에는 위 절 대신 [Notion 첫 배포 안내](NOTION_SETUP.md)를 사용합니다.
 
 공식 참고:
 - https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy
@@ -93,9 +95,10 @@ python -m unittest discover -s tests -v
 
 - 코어 검사는 SQLite와 표준 라이브러리로 실행됩니다.
 - Streamlit을 설치하면 AppTest 화면 검사도 실행됩니다.
-- 실제 OpenAI 호출이나 운영 개인 데이터는 CI에 사용하지 않습니다.
+- Notion 검사는 모의 API로 원문·사진 복원, 업로드 실패, 불확실한 응답, 동시 저장 충돌을 확인합니다.
+- 실제 OpenAI 호출, 실제 Notion 토큰이나 운영 개인 데이터는 CI에 사용하지 않습니다.
 - 이전 앱의 운영 데이터는 저장소와 테스트에 포함하지 않습니다.
 
 ## 현재 이전 상태
 
-독립 앱 코드와 백업 가져오기 기능을 준비했습니다. 로컬 코어 검사와 실제 개인 백업의 복원 검증 결과는 별도 이전 보고서에 기록합니다. Streamlit 설치·브라우저 UI 검사·PostgreSQL 실서비스 연결·클라우드 배포는 완료 결과를 확인하기 전까지 검증 완료로 간주하지 않습니다. 기존 Sites는 새 앱의 복원이 확인되기 전에는 삭제하지 않습니다.
+독립 앱 코드, Notion·PostgreSQL 저장과 백업 가져오기 기능을 준비했습니다. 실제 개인 백업의 복원 검증 결과는 개인 이전 보고서에 기록합니다. 자동 검사는 GitHub Actions에서 실행합니다. 실제 Notion 연결·PostgreSQL 실서비스·Streamlit 클라우드 배포는 운영 환경에서 성공 결과를 확인하기 전까지 검증 완료로 간주하지 않습니다. 기존 Sites는 새 앱의 복원이 확인되기 전에는 삭제하지 않습니다.
