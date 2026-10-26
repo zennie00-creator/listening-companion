@@ -1,0 +1,11 @@
+.streamlit/secrets.toml
+.env*
+.venv/
+__pycache__/
+.pytest_cache/
+*.sqlite*
+data/*
+!data/curated-albums.json
+backups/
+work/
+outputs/
