@@ -1,0 +1,961 @@
+[
+  {
+    "id": "bach-goldberg-lim-carnegie-2025-decca",
+    "workId": "bach-bwv988",
+    "work": "바흐 · 골드베르크 변주곡 BWV 988",
+    "artists": "임윤찬 · 피아노",
+    "album": "J.S. Bach: Goldberg Variations (Live at Carnegie Hall, New York, 2025)",
+    "release": "Decca · 2026년 발매",
+    "recorded": "2025년 4월 25일 · 카네기 홀 실황",
+    "catalogue": {
+      "provider": "apple-music",
+      "id": "1844602145",
+      "url": "https://music.apple.com/kr/album/j-s-bach-goldberg-variations-live-at-carnegie-hall/1844602145",
+      "storefront": "kr",
+      "checkedAt": "2026-09-10",
+      "status": "page-confirmed",
+      "playback": "unverified"
+    },
+    "artwork": {
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/61/44/77/61447793-9057-d97c-b061-7fdcbea39021/25UM1IM37356.rgb.jpg/600x600bf-60.jpg",
+      "sourceUrl": "https://music.apple.com/kr/album/j-s-bach-goldberg-variations-live-at-carnegie-hall/1844602145",
+      "checkedAt": "2026-09-10"
+    },
+    "tags": [
+      "immerse",
+      "reflect",
+      "compare",
+      "sound",
+      "discover"
+    ],
+    "keywords": [
+      "바흐",
+      "bach",
+      "골드베르크",
+      "골드베르그",
+      "goldberg",
+      "임윤찬",
+      "yunchan",
+      "lim",
+      "피아노",
+      "piano"
+    ],
+    "reason": "성부의 관계와 변주마다 달라지는 표현을 따라가는 감상 후보입니다. 잔잔한 아리아만으로 전곡을 배경음악으로 분류하지 않았습니다.",
+    "sound": "Presto의 Matthew Ash는 피아노의 온기와 홀 분위기를 긍정적으로 평가합니다. 측정 결과나 모든 재생 환경에 대한 보증은 아닙니다.",
+    "points": [
+      {
+        "id": "lim-voices",
+        "where": "제1변주",
+        "type": "평론가 의견",
+        "claim": "Matthew Ash는 각 성부의 구분과 상호 관계를 드러내는 연주에 주목합니다.",
+        "question": "선율 하나를 따라간 뒤, 다시 들을 때 다른 성부가 어떻게 응답하는지 들어보세요.",
+        "sourceIndex": 0
+      },
+      {
+        "id": "lim-25",
+        "where": "제25변주",
+        "type": "평론가 의견",
+        "claim": "같은 리뷰는 이 변주의 낭만적인 표현이 취향에 따라 다르게 받아들여질 수 있다고 봅니다.",
+        "question": "시간을 늘이고 긴장을 이어가는 방식이 나에게 자연스럽게 느껴지는지 기록해 보세요.",
+        "sourceIndex": 0
+      },
+      {
+        "id": "lim-return",
+        "where": "처음 아리아와 마지막 아리아",
+        "type": "연주자 설명",
+        "claim": "임윤찬은 처음과 마지막 아리아를 삶의 시작과 끝에 빗대어 설명합니다.",
+        "question": "전곡을 지난 뒤 같은 아리아가 다르게 다가오는지 들어보세요.",
+        "sourceIndex": 1
+      }
+    ],
+    "sources": [
+      {
+        "title": "Matthew Ash · Presto Music, 2026-02-06",
+        "url": "https://www.prestomusic.com/classical/articles/6990--recording-of-the-week-goldberg-variations-from-yunchan-lim",
+        "scope": "2026 Decca 발매 녹음 리뷰",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      },
+      {
+        "title": "Decca · 임윤찬의 앨범 소개",
+        "url": "https://www.deccaclassics.com/en/artists/yunchan-lim/news/yunchan-lim-presents-bachs-goldberg-variations-live-at-carnegie-hall-277317",
+        "scope": "연주자의 작품 해석; 다른 공연의 인용 평가는 사용하지 않음",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      }
+    ]
+  },
+  {
+    "id": "bach-goldberg-olafsson-2023-dg",
+    "workId": "bach-bwv988",
+    "work": "바흐 · 골드베르크 변주곡 BWV 988",
+    "artists": "비킹구르 올라프손 · 피아노",
+    "album": "J. S. Bach: Goldberg Variations",
+    "release": "Deutsche Grammophon · 2023년 발매",
+    "recorded": "2023년 · 레이캬비크 Harpa, Norðurljós Hall",
+    "catalogue": {
+      "provider": "apple-music",
+      "id": "1694676611",
+      "url": "https://music.apple.com/kr/album/j-s-bach-goldberg-variations/1694676611",
+      "storefront": "kr",
+      "checkedAt": "2026-09-10",
+      "status": "page-confirmed",
+      "playback": "unverified"
+    },
+    "artwork": {
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/a3/ff/39/a3ff39ae-8f3b-28d9-cd17-5bed949483c8/23UMGIM67471.rgb.jpg/296x296bb.webp",
+      "sourceUrl": "https://music.apple.com/kr/album/j-s-bach-goldberg-variations/1694676611",
+      "checkedAt": "2026-09-10"
+    },
+    "tags": [
+      "compare",
+      "immerse",
+      "discover"
+    ],
+    "keywords": [
+      "바흐",
+      "bach",
+      "골드베르크",
+      "골드베르그",
+      "goldberg",
+      "올라프손",
+      "olafsson",
+      "ólafsson",
+      "vikingur",
+      "víkingur",
+      "피아노",
+      "piano"
+    ],
+    "reason": "임윤찬과 같은 작품을 다른 호흡으로 비교하는 후보입니다. 빠른 변주들의 추진력과 느린 변주의 시간감에 귀 기울여 보세요.",
+    "sound": "이 카드에는 녹음 품질을 판단할 충분한 근거를 아직 붙이지 않았습니다. 미평가입니다.",
+    "points": [
+      {
+        "id": "olafsson-1-7",
+        "where": "제1변주와 제7변주",
+        "type": "평론가 의견",
+        "claim": "MusicWeb의 2023년 10월 리뷰는 제1변주의 강렬함과 제7변주의 시적인 휴식을 대비하며, 초반의 지속적인 추진력에는 비판적입니다.",
+        "question": "추진력이 즐거움인지 부담인지, 제7변주에서 호흡이 어떻게 달라지는지 비교해 보세요.",
+        "sourceIndex": 0
+      },
+      {
+        "id": "olafsson-25",
+        "where": "제25변주",
+        "type": "평론가 의견",
+        "claim": "같은 리뷰는 매우 느린 진행을 지적합니다. 평론가의 선호를 정답으로 삼지는 않습니다.",
+        "question": "임윤찬의 같은 변주와 비교해 긴장감이 유지되는 방식에 차이가 있는지 들어보세요.",
+        "sourceIndex": 0
+      }
+    ],
+    "sources": [
+      {
+        "title": "MusicWeb International · 2023-10-08",
+        "url": "https://musicwebinternational.com/2023/10/bach-goldberg-variations-deutsche-grammophon/",
+        "scope": "DG 4864553 리뷰; 스트리밍 마스터의 동일성은 미확인",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      }
+    ]
+  },
+  {
+    "id": "beethoven4-coe-nezet-2021-dg",
+    "workId": "beethoven-op60",
+    "work": "베토벤 · 교향곡 4번 B♭장조 Op. 60",
+    "artists": "야닉 네제-세겡 · 유럽 체임버 오케스트라",
+    "album": "Beethoven: The Symphonies",
+    "release": "Deutsche Grammophon · 2022년 전집",
+    "recorded": "2021년 7월 · 바덴바덴 Festspielhaus 실황",
+    "catalogue": {
+      "provider": "apple-music",
+      "id": "1627069272",
+      "url": "https://music.apple.com/kr/album/beethoven-the-symphonies/1627069272",
+      "storefront": "kr",
+      "checkedAt": "2026-09-10",
+      "status": "page-confirmed",
+      "playback": "unverified"
+    },
+    "artwork": {
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/64/e6/27/64e62782-aaaa-444c-7d5b-1c8ba099e11e/22UMGIM34639.rgb.jpg/296x296bb.webp",
+      "sourceUrl": "https://music.apple.com/kr/album/beethoven-the-symphonies/1627069272",
+      "checkedAt": "2026-09-10"
+    },
+    "tags": [
+      "energy",
+      "immerse",
+      "compare",
+      "discover",
+      "sound"
+    ],
+    "keywords": [
+      "베토벤",
+      "beethoven",
+      "4번",
+      "4",
+      "op60",
+      "op.60",
+      "네제",
+      "nezet",
+      "nézet",
+      "교향곡",
+      "오케스트라"
+    ],
+    "reason": "전집 가운데 교향곡 4번 전곡을 감상하는 후보입니다. 종악장의 생동감과 현악·관악의 관계를 중심으로 들을 수 있습니다.",
+    "sound": "지휘자가 설명한 악기 간 균형은 해석의 의도입니다. 이것만으로 녹음의 홀톤이나 음질이 우수하다고 확정하지 않습니다.",
+    "points": [
+      {
+        "id": "coe-finale",
+        "where": "교향곡 4번 · 제4악장",
+        "type": "음악 서비스 해설",
+        "claim": "Apple Music의 앨범 해설은 4번 종악장의 생동감을 강조합니다.",
+        "question": "빠른 움직임 속에서 각 악기의 응답과 프레이즈 끝맺음이 어떻게 연결되는지 들어보세요.",
+        "sourceIndex": 0
+      },
+      {
+        "id": "coe-balance",
+        "where": "교향곡 4번 · 전곡",
+        "type": "연주자 설명",
+        "claim": "네제-세겡은 전집에서 현악과 다른 악기들의 균형, 특히 목관의 역할을 중시했다고 설명합니다.",
+        "question": "현악 선율을 듣다가 목관으로 주의를 옮겨 보세요. 어떤 대화가 새롭게 들리나요?",
+        "sourceIndex": 0
+      }
+    ],
+    "sources": [
+      {
+        "title": "Apple Music · 네제-세겡 인터뷰와 앨범 해설",
+        "url": "https://music.apple.com/us/album/beethoven-the-symphonies/1627069272",
+        "scope": "같은 카탈로그 ID의 미국판 해설; 전집 전체 의도와 4번 설명을 구분",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      }
+    ]
+  },
+  {
+    "id": "beethoven4-kleiber-orfeo-digital2016",
+    "workId": "beethoven-op60",
+    "work": "베토벤 · 교향곡 4번 B♭장조 Op. 60",
+    "artists": "카를로스 클라이버 · 바이에른 국립 오케스트라",
+    "album": "Beethoven: Symphony No. 4 in B-Flat Major, Op. 60",
+    "release": "Orfeo · 2016년 디지털 발매 표기",
+    "recorded": "1982년 뮌헨 연주에 관한 리뷰 참고 · 디지털 마스터 세부 미확인",
+    "catalogue": {
+      "provider": "apple-music",
+      "id": "1088365324",
+      "url": "https://music.apple.com/kr/album/beethoven-symphony-no-4-in-b-flat-major-op-60/1088365324",
+      "storefront": "kr",
+      "checkedAt": "2026-09-10",
+      "status": "page-confirmed",
+      "playback": "unverified"
+    },
+    "artwork": {
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Music69/v4/6d/4f/f8/6d4ff8cf-d89d-f533-7221-e2836d32af98/4011790100128.jpg/296x296bb.webp",
+      "sourceUrl": "https://music.apple.com/kr/album/beethoven-symphony-no-4-in-b-flat-major-op-60/1088365324",
+      "checkedAt": "2026-09-10"
+    },
+    "tags": [
+      "energy",
+      "compare",
+      "immerse",
+      "discover"
+    ],
+    "keywords": [
+      "베토벤",
+      "beethoven",
+      "4번",
+      "4",
+      "op60",
+      "op.60",
+      "클라이버",
+      "클레이버",
+      "kleiber",
+      "교향곡",
+      "오케스트라"
+    ],
+    "reason": "같은 4번 교향곡의 리듬과 추진력을 비교하는 후보입니다. 발매 연도와 실제 연주 시점을 구분해 표시했습니다.",
+    "sound": "참고 리뷰는 다른 재발매 묶음 Orfeo C200011을 다룹니다. 그 음질 평가를 이 스트리밍 발매본에 옮기지 않았습니다.",
+    "points": [
+      {
+        "id": "kleiber-rhythm",
+        "where": "교향곡 4번 · 전곡",
+        "type": "평론가 의견",
+        "claim": "Stephen Greenbank는 1982년 클라이버 연주의 리듬감과 활력을 높이 평가합니다. 리뷰 대상은 C200011 재발매입니다.",
+        "question": "네제-세겡 녹음과 같은 악장을 비교하며 박동, 악센트, 긴장이 풀리는 순간을 따라가 보세요.",
+        "sourceIndex": 0
+      }
+    ],
+    "sources": [
+      {
+        "title": "Stephen Greenbank · MusicWeb, 2020-09",
+        "url": "https://www.musicweb-international.com/classrev/2020/Sep/Orfeo-40th-conductors-C200011.htm",
+        "scope": "동일 연주 참고용; 2016 디지털 발매와 마스터 동일성 미확인",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      }
+    ]
+  },
+  {
+    "id": "research-594521223",
+    "workId": "bach-bwv988",
+    "work": "바흐 · 골드베르크 변주곡 BWV 988",
+    "artists": "글렌 굴드 · 피아노",
+    "album": "Bach: Goldberg Variations, BWV 988 (The 1955 & 1981 Recordings)",
+    "release": "Sony Classical · 1955·1981 녹음 합본",
+    "recorded": "1955년과 1981년 · 뉴욕 Columbia 30th Street Studio",
+    "catalogue": {
+      "provider": "apple-music",
+      "id": "594521223",
+      "url": "https://music.apple.com/kr/album/bach-goldberg-variations-bwv-988-the-1955-1981-recordings/594521223",
+      "storefront": "kr",
+      "checkedAt": "2026-09-10",
+      "status": "page-confirmed",
+      "playback": "unverified"
+    },
+    "artwork": {
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/a9/52/4d/a9524d7e-631b-ece3-cf70-cf37023e8251/886443710016.jpg/600x600bf-60.jpg",
+      "sourceUrl": "https://music.apple.com/kr/album/bach-goldberg-variations-bwv-988-the-1955-1981-recordings/594521223",
+      "checkedAt": "2026-09-10"
+    },
+    "tags": [
+      "compare",
+      "immerse",
+      "discover"
+    ],
+    "keywords": [
+      "바흐",
+      "bach",
+      "골드베르크",
+      "골드베르그",
+      "goldberg",
+      "피아노",
+      "piano",
+      "굴드",
+      "글렌",
+      "glenn",
+      "gould",
+      "glen",
+      "1981",
+      "1955"
+    ],
+    "reason": "같은 연주자가 다시 해석한 아리아와 변주의 시간감을 비교하는 후보입니다. 두 녹음을 담은 한 앨범입니다.",
+    "sound": "참고 리뷰는 2002년 Sony Legacy 재발매를 다룹니다. 1981년 녹음의 디지털·아날로그 테이프 차이가 논의되므로 이 스트리밍판의 음질과 같다고 간주하지 않습니다.",
+    "sources": [
+      {
+        "title": "Christopher Howell · MusicWeb, 2002-11",
+        "url": "https://www.musicweb-international.com/classrev/2002/nov02/goldbergs.htm",
+        "scope": "Sony Legacy SM3K 87703의 두 연주 비교; 현재 합본의 마스터 동일성 미확인",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      }
+    ],
+    "points": [
+      {
+        "id": "point-594521223-1",
+        "where": "두 녹음의 첫 아리아",
+        "type": "평론가 의견",
+        "claim": "Howell은 1981년 아리아의 훨씬 느린 진행과 음색 조절에 주목하면서 해석에 유보적인 의견도 제시합니다.",
+        "question": "두 아리아를 번갈아 들으며 속도뿐 아니라 음 사이의 긴장과 여백을 비교해 보세요.",
+        "sourceIndex": 0
+      },
+      {
+        "id": "point-594521223-2",
+        "where": "제1변주 · 1955 / 1981",
+        "type": "평론가 의견",
+        "claim": "같은 리뷰는 두 연주의 또렷한 아티큘레이션과 크게 달라진 속도를 비교합니다.",
+        "question": "음의 시작과 끝이 얼마나 분리되는지, 빠르기가 달라도 성부가 어떻게 유지되는지 들어보세요.",
+        "sourceIndex": 0
+      }
+    ]
+  },
+  {
+    "id": "research-337944523",
+    "workId": "bach-bwv988",
+    "work": "바흐 · 골드베르크 변주곡 BWV 988",
+    "artists": "머레이 페라이어 · 피아노",
+    "album": "Bach: Goldberg Variations, BWV 988",
+    "release": "Sony Classical · 2000년 발매",
+    "recorded": "2000년 7월 · 스위스 La Chaux-de-Fonds",
+    "catalogue": {
+      "provider": "apple-music",
+      "id": "337944523",
+      "url": "https://music.apple.com/kr/album/bach-goldberg-variations-bwv-988/337944523",
+      "storefront": "kr",
+      "checkedAt": "2026-09-10",
+      "status": "page-confirmed",
+      "playback": "unverified"
+    },
+    "artwork": {
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Music/6f/ac/0b/mzi.xurtlshs.jpg/600x600bf-60.jpg",
+      "sourceUrl": "https://music.apple.com/kr/album/bach-goldberg-variations-bwv-988/337944523",
+      "checkedAt": "2026-09-10"
+    },
+    "tags": [
+      "compare",
+      "immerse",
+      "discover",
+      "sound"
+    ],
+    "keywords": [
+      "바흐",
+      "bach",
+      "골드베르크",
+      "골드베르그",
+      "goldberg",
+      "피아노",
+      "piano",
+      "머레이",
+      "페라이어",
+      "페라히아",
+      "perahia",
+      "murray"
+    ],
+    "reason": "반복구의 색채와 노래하는 프레이징을 비교할 수 있는 후보입니다.",
+    "sound": "Ralph Moore는 피아노의 풍부한 울림과 녹음을 높이 평가하면서 건반 주변의 작은 소리도 들린다고 언급합니다. 이는 리뷰 대상 녹음에 대한 의견이며 스트리밍 마스터 동일성은 미확인입니다.",
+    "sources": [
+      {
+        "title": "Ralph Moore · MusicWeb 골드베르크 비교 조사, 2020",
+        "url": "https://www.musicweb-international.com/classrev/2020/May/Bach_Goldberg_survey.pdf",
+        "scope": "Perahia studio 2000, Sony 항목; 평론가의 비교 감상",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      },
+      {
+        "title": "Christopher Howell · MusicWeb, 2002-11",
+        "url": "https://www.musicweb-international.com/classrev/2002/nov02/goldbergs.htm",
+        "scope": "Sony SK 89243 녹음 장소·시기와 변주별 비교",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      }
+    ],
+    "points": [
+      {
+        "id": "point-337944523-1",
+        "where": "제25변주",
+        "type": "평론가 의견",
+        "claim": "Moore는 이 변주의 사색적인 표현과 페달 사용을 긍정적으로 평가합니다.",
+        "question": "긴 선율을 잇는 페달의 잔향 속에서도 다음 화음의 윤곽이 어떻게 살아나는지 들어보세요.",
+        "sourceIndex": 0
+      },
+      {
+        "id": "point-337944523-2",
+        "where": "반복되는 각 변주의 후반",
+        "type": "평론가 의견",
+        "claim": "Moore는 반복구에 실린 색채 변화와 미묘한 강조를 주요 특징으로 봅니다.",
+        "question": "반복이 돌아올 때 같은 성부가 계속 앞에 있는지, 강조점이 옮겨가는지 기록해 보세요.",
+        "sourceIndex": 0
+      }
+    ]
+  },
+  {
+    "id": "research-1196512243",
+    "workId": "bach-bwv988",
+    "work": "바흐 · 골드베르크 변주곡 BWV 988",
+    "artists": "베아트리체 라나 · 피아노",
+    "album": "Bach: Goldberg Variations, BWV 988",
+    "release": "Warner Classics · 2017년 발매",
+    "recorded": "스튜디오 녹음 · 세부 장소 미확인",
+    "catalogue": {
+      "provider": "apple-music",
+      "id": "1196512243",
+      "url": "https://music.apple.com/kr/album/bach-goldberg-variations-bwv-988/1196512243",
+      "storefront": "kr",
+      "checkedAt": "2026-09-10",
+      "status": "page-confirmed",
+      "playback": "unverified"
+    },
+    "artwork": {
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Music111/v4/08/89/18/088918e1-aa68-c582-3ea6-5d350473fade/190295879426.jpg/600x600bf-60.jpg",
+      "sourceUrl": "https://music.apple.com/kr/album/bach-goldberg-variations-bwv-988/1196512243",
+      "checkedAt": "2026-09-10"
+    },
+    "tags": [
+      "compare",
+      "immerse",
+      "discover"
+    ],
+    "keywords": [
+      "바흐",
+      "bach",
+      "골드베르크",
+      "골드베르그",
+      "goldberg",
+      "피아노",
+      "piano",
+      "라나",
+      "rana",
+      "beatrice",
+      "베아트리체"
+    ],
+    "reason": "현대 피아노의 페달과 다이내믹을 활용한 바흐 해석을 비교하는 후보입니다.",
+    "sound": "연주자 인터뷰로 해석의 의도는 확인했지만 녹음 품질은 별도 평가를 유보합니다.",
+    "sources": [
+      {
+        "title": "Katherine Cooper · Presto, 라나 인터뷰, 2017-03-28",
+        "url": "https://www.prestomusic.com/classical/articles/1705--interview-beatrice-rana-on-the-goldberg-variations",
+        "scope": "2017 Warner 녹음에 관한 연주자 인터뷰",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      }
+    ],
+    "points": [
+      {
+        "id": "point-1196512243-1",
+        "where": "아리아와 변주들 · 전곡",
+        "type": "연주자 설명",
+        "claim": "라나는 바로크 양식을 존중하면서 현대 피아노의 페달과 다이내믹을 활용한다고 설명합니다.",
+        "question": "음을 이어주는 울림과 성부의 경계가 어떤 균형을 이루는지 들어보세요.",
+        "sourceIndex": 0
+      },
+      {
+        "id": "point-1196512243-2",
+        "where": "전곡을 이어 들을 때",
+        "type": "연주자 설명",
+        "claim": "라나는 녹음에서 전곡의 건축적인 구조를 유지하는 일을 중요한 어려움으로 꼽습니다.",
+        "question": "개별 변주가 끝난 뒤 다음 변주가 시작할 때 큰 호흡이 유지되는지 느껴보세요.",
+        "sourceIndex": 0
+      }
+    ]
+  },
+  {
+    "id": "research-1519461991",
+    "workId": "bach-bwv988",
+    "work": "바흐 · 골드베르크 변주곡 BWV 988",
+    "artists": "랑랑 · 피아노",
+    "album": "Bach: Goldberg Variations",
+    "release": "Deutsche Grammophon · 2020년 발매",
+    "recorded": "32트랙 정규판 · 별도 실황 포함 확장판과 구분",
+    "catalogue": {
+      "provider": "apple-music",
+      "id": "1519461991",
+      "url": "https://music.apple.com/kr/album/bach-goldberg-variations/1519461991",
+      "storefront": "kr",
+      "checkedAt": "2026-09-10",
+      "status": "page-confirmed",
+      "playback": "unverified"
+    },
+    "artwork": {
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/25/5a/10/255a102f-71cc-b65d-e6ab-05e31253a904/19UMGIM95010.rgb.jpg/600x600bf-60.jpg",
+      "sourceUrl": "https://music.apple.com/kr/album/bach-goldberg-variations/1519461991",
+      "checkedAt": "2026-09-10"
+    },
+    "tags": [
+      "compare",
+      "immerse",
+      "discover"
+    ],
+    "keywords": [
+      "바흐",
+      "bach",
+      "골드베르크",
+      "골드베르그",
+      "goldberg",
+      "피아노",
+      "piano",
+      "랑랑",
+      "랑",
+      "lang"
+    ],
+    "reason": "크게 대비되는 속도와 긴 호흡을 비교해 볼 해석입니다.",
+    "sound": "Apple Music 해설은 해석을 중심으로 다룹니다. 홀톤·마이크 배치·마스터에 대한 별도 근거가 없어 녹음 품질은 미평가입니다.",
+    "sources": [
+      {
+        "title": "Apple Music · 랑랑 인터뷰와 앨범 해설",
+        "url": "https://music.apple.com/us/album/bach-goldberg-variations/1519461991",
+        "scope": "동일 카탈로그 ID의 미국판 해설; 연주자 말과 서비스 의견을 구분",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      }
+    ],
+    "points": [
+      {
+        "id": "point-1519461991-1",
+        "where": "제25변주",
+        "type": "음악 서비스 해설",
+        "claim": "Apple Music 해설은 이 변주의 매우 느린 진행을 해석의 뚜렷한 특징으로 지목합니다.",
+        "question": "페라이어·임윤찬과 같은 변주를 비교하며 느린 속도에서 긴장이 어떻게 유지되는지 들어보세요.",
+        "sourceIndex": 0
+      },
+      {
+        "id": "point-1519461991-2",
+        "where": "마지막 아리아",
+        "type": "연주자 설명",
+        "claim": "랑랑은 앞선 변주들의 기억이 손에 남은 채 마지막 아리아로 돌아오는 경험을 설명합니다.",
+        "question": "처음 아리아와 마지막 아리아의 정서가 내게 어떻게 달라지는지 기록해 보세요.",
+        "sourceIndex": 0
+      }
+    ]
+  },
+  {
+    "id": "research-1724250355",
+    "workId": "beethoven-op60",
+    "work": "베토벤 · 교향곡 4번 B♭장조 Op. 60",
+    "artists": "오스모 벤스케 · 미네소타 오케스트라",
+    "album": "Beethoven: Symphonies Nos. 4 and 5",
+    "release": "BIS · 2004년 표기",
+    "recorded": "2004년 4월 30일 · 미니애폴리스 Orchestra Hall (4번)",
+    "catalogue": {
+      "provider": "apple-music",
+      "id": "1724250355",
+      "url": "https://music.apple.com/kr/album/beethoven-symphonies-nos-4-and-5/1724250355",
+      "storefront": "kr",
+      "checkedAt": "2026-09-10",
+      "status": "page-confirmed",
+      "playback": "unverified"
+    },
+    "artwork": {
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/74/98/82/749882bf-be9f-b1bb-57e7-dca0f5fd930c/7318599914169.png/600x600bf-60.jpg",
+      "sourceUrl": "https://music.apple.com/kr/album/beethoven-symphonies-nos-4-and-5/1724250355",
+      "checkedAt": "2026-09-10"
+    },
+    "tags": [
+      "compare",
+      "immerse",
+      "discover",
+      "energy"
+    ],
+    "keywords": [
+      "베토벤",
+      "beethoven",
+      "4번",
+      "4",
+      "op60",
+      "op.60",
+      "교향곡",
+      "오케스트라",
+      "벤스케",
+      "반스카",
+      "vanska",
+      "osmo",
+      "minnesota"
+    ],
+    "reason": "첫 악장의 긴장 형성과 후반 악장의 리듬을 큰 구조 안에서 비교하는 후보입니다.",
+    "sound": "이번에 읽은 리뷰는 해석과 구조를 주로 평가합니다. SACD 리뷰와 스트리밍판의 마스터가 같은지 확인하지 않았으므로 음질 우수성을 확정하지 않습니다.",
+    "sources": [
+      {
+        "title": "Peter J Lawson · MusicWeb, 2005-03",
+        "url": "https://www.musicweb-international.com/classrev/2005/Mar05/Beethoven_45Vanska_BISSACD1416.htm",
+        "scope": "BIS SACD 1416의 4·5번 리뷰; 현재 디지털판과 마스터 동일성 미확인",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      }
+    ],
+    "points": [
+      {
+        "id": "point-1724250355-1",
+        "where": "교향곡 4번 · 제1악장 서주",
+        "type": "평론가 의견",
+        "claim": "Lawson은 느린 서주가 이후 전개를 예고하는 분위기를 만든다고 평가합니다.",
+        "question": "약한 소리에서 긴장이 쌓이다 빠른 부분으로 넘어갈 때 공간과 리듬이 어떻게 달라지는지 들어보세요.",
+        "sourceIndex": 0
+      },
+      {
+        "id": "point-1724250355-2",
+        "where": "교향곡 4번 · 제3·4악장",
+        "type": "평론가 의견",
+        "claim": "같은 리뷰는 과도하게 몰아붙이기보다 리듬의 명료함으로 흥분을 만든다고 봅니다.",
+        "question": "클라이버의 같은 악장과 비교해 속도와 악센트 중 무엇이 추진력을 만드는지 들어보세요.",
+        "sourceIndex": 0
+      }
+    ]
+  },
+  {
+    "id": "research-1387028462",
+    "workId": "beethoven-op60",
+    "work": "베토벤 · 교향곡 4번 B♭장조 Op. 60",
+    "artists": "베르나르트 하이팅크 · 런던 심포니 오케스트라",
+    "album": "Beethoven: Symphonies Nos. 1–9",
+    "release": "LSO Live · 2006년 전집",
+    "recorded": "4번: 2006년 4월 · 런던 Barbican 실황",
+    "catalogue": {
+      "provider": "apple-music",
+      "id": "1387028462",
+      "url": "https://music.apple.com/kr/album/beethoven-symphonies-nos-1-9/1387028462",
+      "storefront": "kr",
+      "checkedAt": "2026-09-10",
+      "status": "page-confirmed",
+      "playback": "unverified"
+    },
+    "artwork": {
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/23/42/cd/2342cd59-4398-206a-25b2-a49ad3e72096/0822231159865.png/600x600bf-60.jpg",
+      "sourceUrl": "https://music.apple.com/kr/album/beethoven-symphonies-nos-1-9/1387028462",
+      "checkedAt": "2026-09-10"
+    },
+    "tags": [
+      "compare",
+      "immerse",
+      "discover",
+      "energy"
+    ],
+    "keywords": [
+      "베토벤",
+      "beethoven",
+      "4번",
+      "4",
+      "op60",
+      "op.60",
+      "교향곡",
+      "오케스트라",
+      "하이팅크",
+      "haitink",
+      "bernard",
+      "lso",
+      "런던"
+    ],
+    "reason": "전집 중 교향곡 4번의 느린 악장과 스케르초를 비교하는 후보입니다.",
+    "sound": "HRAudio의 John Broggio는 전집의 녹음을 긍정적으로 평가합니다. SACD 전집에 대한 의견이며 해당 스트리밍판의 마스터와 동일하다는 근거는 아닙니다.",
+    "sources": [
+      {
+        "title": "Hyperion / LSO Live · LSO0587 소개",
+        "url": "https://www.hyperion-records.co.uk/dc.asp?dc=D_LSO0587",
+        "scope": "4·8번 단독 발매 정보와 Classics Today 리뷰 인용; 전집 수록 연주 참고",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      },
+      {
+        "title": "John Broggio · HRAudio, 2006-10-03",
+        "url": "https://www.hraudio.net/showmusic.php?showall=1&title=4014",
+        "scope": "LSO0598 SACD 전집 리뷰; 디지털판과 포맷·마스터 구분",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      }
+    ],
+    "points": [
+      {
+        "id": "point-1387028462-1",
+        "where": "교향곡 4번 · 제2악장",
+        "type": "평론가 의견",
+        "claim": "LSO 발매 소개에 인용된 Classics Today 리뷰는 제2악장의 자연스러운 흔들림과 관현악 색채에 주목합니다.",
+        "question": "선율 아래의 반복 리듬과 목관의 색채가 서로를 가리지 않고 어떻게 움직이는지 들어보세요.",
+        "sourceIndex": 0
+      },
+      {
+        "id": "point-1387028462-2",
+        "where": "교향곡 4번 · 제3악장",
+        "type": "평론가 의견",
+        "claim": "같은 인용 리뷰는 스케르초의 탄력을 강조합니다.",
+        "question": "강박의 무게와 약박의 가벼움이 춤추는 느낌에 어떤 차이를 만드는지 비교해 보세요.",
+        "sourceIndex": 0
+      }
+    ]
+  },
+  {
+    "id": "research-1452544181",
+    "workId": "mahler2",
+    "work": "말러 · 교향곡 2번 C단조 부활",
+    "artists": "길버트 카플란 · 빈 필하모닉",
+    "album": "Mahler: Symphony No. 2",
+    "release": "Deutsche Grammophon · 2003년 발매",
+    "recorded": "2002년 11–12월 · 빈 Musikverein",
+    "catalogue": {
+      "provider": "apple-music",
+      "id": "1452544181",
+      "url": "https://music.apple.com/kr/album/mahler-symphony-no-2/1452544181",
+      "storefront": "kr",
+      "checkedAt": "2026-09-10",
+      "status": "page-confirmed",
+      "playback": "unverified"
+    },
+    "artwork": {
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/34/1e/6a/341e6a4a-bba8-6003-477b-54cafdfbaef3/06UMGIM35021.rgb.jpg/600x600bf-60.jpg",
+      "sourceUrl": "https://music.apple.com/kr/album/mahler-symphony-no-2/1452544181",
+      "checkedAt": "2026-09-10"
+    },
+    "tags": [
+      "compare",
+      "immerse",
+      "discover",
+      "sound"
+    ],
+    "keywords": [
+      "말러",
+      "mahler",
+      "2번",
+      "2",
+      "부활",
+      "resurrection",
+      "교향곡",
+      "오케스트라",
+      "카플란",
+      "캐플란",
+      "kaplan",
+      "gilbert",
+      "vienna",
+      "wien",
+      "빈"
+    ],
+    "reason": "세부 악기선의 명료함과 무대 밖 금관의 거리감을 함께 살펴볼 후보입니다.",
+    "sound": "Colin Clarke는 세부의 선명함과 무대 밖 금관의 균형을 칭찬하지만, 가까이 잡힌 플루트가 균형을 깨뜨릴 수 있다고도 지적합니다. 음악성과 녹음에 대한 장단점을 함께 보존합니다.",
+    "sources": [
+      {
+        "title": "Colin Clarke · MusicWeb, 2003-11",
+        "url": "https://www.musicweb-international.com/classrev/2003/Nov03/Mahler2Kaplan.htm",
+        "scope": "DG 474 380-2 리뷰; 해당 스트리밍판의 마스터 동일성 미확인",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      }
+    ],
+    "points": [
+      {
+        "id": "point-1452544181-1",
+        "where": "제1악장 · 도입과 현악 진행",
+        "type": "평론가 의견",
+        "claim": "Clarke는 겹쳐 연주하는 악기들이 또렷하게 드러나는 점을 장점으로 꼽습니다.",
+        "question": "같은 선율을 겹쳐 연주하는 악기들을 따로 들은 뒤 하나의 질감으로도 들어보세요.",
+        "sourceIndex": 0
+      },
+      {
+        "id": "point-1452544181-2",
+        "where": "제5악장 · 무대 밖 금관과 합창 진입 전",
+        "type": "평론가 의견",
+        "claim": "같은 리뷰는 무대 밖 금관의 거리감을 긍정적으로 보면서 가까운 플루트의 돌출에는 비판적입니다.",
+        "question": "멀리 들리는 금관과 가까운 목관이 하나의 공간 안에 자연스럽게 놓이는지 기록해 보세요.",
+        "sourceIndex": 0
+      }
+    ]
+  },
+  {
+    "id": "research-1669520542",
+    "workId": "mahler2",
+    "work": "말러 · 교향곡 2번 C단조 부활",
+    "artists": "이반 피셔 · 부다페스트 페스티벌 오케스트라",
+    "album": "Mahler: Symphony No. 2",
+    "release": "Channel Classics · 2006년 발매",
+    "recorded": "CCS SA 23506 연주 · 정확한 녹음 일시 미확인",
+    "catalogue": {
+      "provider": "apple-music",
+      "id": "1669520542",
+      "url": "https://music.apple.com/kr/album/mahler-symphony-no-2/1669520542",
+      "storefront": "kr",
+      "checkedAt": "2026-09-10",
+      "status": "page-confirmed",
+      "playback": "unverified"
+    },
+    "artwork": {
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/5f/76/4d/5f764d88-e464-2305-fc50-92574bb55b1d/723385235064.png/600x600bf-60.jpg",
+      "sourceUrl": "https://music.apple.com/kr/album/mahler-symphony-no-2/1669520542",
+      "checkedAt": "2026-09-10"
+    },
+    "tags": [
+      "compare",
+      "immerse",
+      "discover",
+      "sound"
+    ],
+    "keywords": [
+      "말러",
+      "mahler",
+      "2번",
+      "2",
+      "부활",
+      "resurrection",
+      "교향곡",
+      "오케스트라",
+      "피셔",
+      "fischer",
+      "ivan",
+      "이반",
+      "budapest",
+      "부다페스트"
+    ],
+    "reason": "큰 편성 속에서도 성부끼리 경쟁하지 않는 균형을 비교할 후보입니다.",
+    "sound": "Presto에 인용된 BBC Music Magazine 리뷰는 금관과 목관의 교차를 명료하게 평가합니다. SACD·다운로드 발매 리뷰이며 Apple 스트리밍의 마스터와 동일성은 미확인입니다.",
+    "sources": [
+      {
+        "title": "Presto · Channel Classics CCS SA 23506",
+        "url": "https://www.prestomusic.com/classical/products/7947591--mahler-symphony-no-2-resurrection",
+        "scope": "BBC Music Magazine 2006-10 및 Gramophone 평 인용; 원문 전체를 전재하지 않음",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      }
+    ],
+    "points": [
+      {
+        "id": "point-1669520542-1",
+        "where": "제1악장 · 장송의 코다",
+        "type": "평론가 의견",
+        "claim": "Presto가 인용한 BBC 리뷰는 제1악장 코다에서 대립하는 성부의 균형을 강조합니다.",
+        "question": "낮은 현악과 그 위의 선율이 서로를 압도하는지, 별개의 선으로 남는지 들어보세요.",
+        "sourceIndex": 0
+      },
+      {
+        "id": "point-1669520542-2",
+        "where": "금관과 목관이 교차하는 부분",
+        "type": "평론가 의견",
+        "claim": "같은 인용 리뷰는 고음 금관과 목관의 상호작용이 잘 드러난다고 봅니다.",
+        "question": "한 악기의 소리 크기보다 다른 악기로 주고받는 연결을 따라가 보세요.",
+        "sourceIndex": 0
+      }
+    ]
+  },
+  {
+    "id": "research-1675360108",
+    "workId": "mahler2",
+    "work": "말러 · 교향곡 2번 C단조 부활",
+    "artists": "세묜 비치코프 · 체코 필하모닉",
+    "album": "Mahler: Symphony No. 2",
+    "release": "Pentatone · 2023년 발매",
+    "recorded": "2018년 · 프라하 Rudolfinum, Dvořák Hall",
+    "catalogue": {
+      "provider": "apple-music",
+      "id": "1675360108",
+      "url": "https://music.apple.com/kr/album/mahler-symphony-no-2/1675360108",
+      "storefront": "kr",
+      "checkedAt": "2026-09-10",
+      "status": "page-confirmed",
+      "playback": "unverified"
+    },
+    "artwork": {
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/41/cd/99/41cd99c4-d38b-d96f-9832-e5b3ae3bfbdb/8717306260879_cover.jpg/600x600bf-60.jpg",
+      "sourceUrl": "https://music.apple.com/kr/album/mahler-symphony-no-2/1675360108",
+      "checkedAt": "2026-09-10"
+    },
+    "tags": [
+      "compare",
+      "immerse",
+      "discover",
+      "sound"
+    ],
+    "keywords": [
+      "말러",
+      "mahler",
+      "2번",
+      "2",
+      "부활",
+      "resurrection",
+      "교향곡",
+      "오케스트라",
+      "비치코프",
+      "비쉬코프",
+      "bychkov",
+      "semyon",
+      "체코",
+      "czech"
+    ],
+    "reason": "노래하는 프레이즈와 중간 성부의 균형을 깊게 들어볼 후보입니다.",
+    "sound": "MusicWeb 리뷰는 체코 필의 따뜻한 질감을 높이 평가합니다. 리뷰어가 들은 것은 24bit/96kHz 스테레오 다운로드이며 Apple 제공 마스터와의 동일성은 미확인입니다.",
+    "sources": [
+      {
+        "title": "MusicWeb · Pentatone PTC5186992, 2023-04-30",
+        "url": "https://musicwebinternational.com/2023/04/mahler-symphony-2-pentatone/",
+        "scope": "24bit/96kHz 다운로드 리뷰; 해당 연주의 세부 해석 참고",
+        "rights": "linked-paraphrase-only",
+        "aiIngestion": "not-authorized"
+      }
+    ],
+    "points": [
+      {
+        "id": "point-1675360108-1",
+        "where": "제2악장 · 첼로의 대선율이 들어올 때",
+        "type": "평론가 의견",
+        "claim": "리뷰는 첼로의 대선율이 바이올린의 주선율을 덮지 않는 균형을 구체적인 장점으로 듭니다.",
+        "question": "첼로로 귀를 옮겨도 바이올린 선율의 흐름이 이어지는지 들어보세요.",
+        "sourceIndex": 0
+      },
+      {
+        "id": "point-1675360108-2",
+        "where": "제5악장 · 전반부 금관 코랄",
+        "type": "평론가 의견",
+        "claim": "같은 리뷰는 프레이즈 끝을 다음 구절로 이어 주는 연주가 전체 구조를 묶는다고 평가합니다.",
+        "question": "긴 음이 끝날 때 에너지가 끊기는지, 다음 구절을 향해 이어지는지 들어보세요.",
+        "sourceIndex": 0
+      }
+    ]
+  }
+]
