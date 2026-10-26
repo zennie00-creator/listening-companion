@@ -4,6 +4,8 @@ Each save adds a child page with a manifest and complete portable backup. SQL
 is used only inside a temporary working directory; Notion remains authoritative.
 No last-writer-wins: divergent snapshot chains stop reads and preserve both files.
 """
+import base64
+import binascii
 import hashlib
 import io
 import json
@@ -184,10 +186,14 @@ class NotionStore:
                 if not 1 <= len(value['parts']) <= 20:
                     raise ValueError()
                 names = [p['name'] for p in value['parts']]
-                if len(set(names)) != len(names) or any(not re.fullmatch(r'part-[0-9]{3}\.zip', n) for n in names):
+                if len(set(names)) != len(names) or any(not re.fullmatch(r'part-[0-9]{3}\.(zip|json)', n) for n in names):
                     raise ValueError()
                 if any(not re.fullmatch(r'[0-9a-f]{64}', p['sha256']) for p in value['parts']):
                     raise ValueError()
+                for part in value['parts']:
+                    encoding = part.get('encoding', 'zip')
+                    if encoding not in ('zip', 'base64-json') or part['name'].endswith('.json') != (encoding == 'base64-json'):
+                        raise ValueError()
             except (KeyError, TypeError, ValueError):
                 raise NotionError('Notion 저장 정보가 손상되었거나 수정되었습니다. 원본 백업을 확인해 주세요.') from None
             self._cache[op] = (value, block['id'])
@@ -247,16 +253,28 @@ class NotionStore:
             file = files.get(part['name'], {})
             if file.get('type') != 'file' or not file.get('file', {}).get('url'):
                 raise NotionError('저장된 백업의 첨부 파일이 빠져 있습니다.')
-            data = self.api.download(file['file']['url'], PART_SIZE + 4096)
+            encoding = part.get('encoding', 'zip')
+            limit = 200 * 1024 if encoding == 'base64-json' else PART_SIZE + 4096
+            data = self.api.download(file['file']['url'], limit)
+            if len(data) > limit:
+                raise NotionError('Notion 백업 조각이 예상 크기를 초과했습니다.')
             if hashlib.sha256(data).hexdigest() != part['sha256']:
                 raise NotionError('Notion 백업 파일의 검증값이 다릅니다. 원문을 덮어쓰지 않습니다.')
             try:
-                with zipfile.ZipFile(io.BytesIO(data)) as archive:
-                    info = archive.infolist()
-                    if len(info) != 1 or info[0].filename != 'snapshot.part' or info[0].file_size > PART_SIZE:
+                if encoding == 'base64-json':
+                    # Connector-assisted import: text attachments are delivered by
+                    # Notion's authenticated connector when direct uploads are unavailable.
+                    part_document = json.loads(data)
+                    if part_document.get('format') != 'listening-notion-part-1' or not isinstance(part_document.get('data'), str):
                         raise ValueError()
-                    chunks.append(archive.read('snapshot.part'))
-            except (ValueError, zipfile.BadZipFile, RuntimeError):
+                    chunks.append(base64.b64decode(part_document['data'], validate=True))
+                else:
+                    with zipfile.ZipFile(io.BytesIO(data)) as archive:
+                        info = archive.infolist()
+                        if len(info) != 1 or info[0].filename != 'snapshot.part' or info[0].file_size > PART_SIZE:
+                            raise ValueError()
+                        chunks.append(archive.read('snapshot.part'))
+            except (ValueError, AttributeError, binascii.Error, zipfile.BadZipFile, RuntimeError):
                 raise NotionError('Notion 백업 조각이 손상되었습니다.') from None
         content = b''.join(chunks)
         if len(content) != manifest['size'] or hashlib.sha256(content).hexdigest() != manifest['sha256']:
