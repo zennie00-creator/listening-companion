@@ -30,6 +30,7 @@ class UITests(unittest.TestCase):
         for section in ['감상 기록', '청음 실험', '청취 환경', '나의 취향', '백업·가져오기', '오늘의 음악']:
             at.sidebar.radio[0].set_value(section).run()
             self.assertEqual(len(at.exception), 0, section)
+            self.assertEqual(len(at.error), 0, section)
         at.sidebar.radio[0].set_value('감상 기록').run()
         next(w for w in at.text_area if w.label == '감상').set_value('합성 테스트 감상')
         next(w for w in at.text_input if w.label == '앨범 공유 주소').set_value('https://tidal.com/browse/album/123')

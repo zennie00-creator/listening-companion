@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import os
+import uuid
 import zipfile
 from listening.auth import hash_password, valid_password
 from listening.links import manual_album, MusicError
@@ -116,9 +118,17 @@ class CoreTests(unittest.TestCase):
         self.assertFalse(valid_password('anything', 'malformed'))
         for _ in range(10):
             self.store.login_result(False)
-        self.assertGreater(Store(self.url).login_blocked(), 0)
+        self.assertGreater(Store(self.url, owner=self.store.owner).login_blocked(), 0)
         self.store.login_result(True)
         self.assertEqual(self.store.login_blocked(), 0)
+
+
+@unittest.skipUnless(os.getenv('LC_TEST_POSTGRES_URL'), 'PostgreSQL test service is not configured')
+class PostgreSQLCoreTests(CoreTests):
+    def setUp(self):
+        self.folder = tempfile.TemporaryDirectory()
+        self.url = os.environ['LC_TEST_POSTGRES_URL']
+        self.store = Store(self.url, owner='test-' + str(uuid.uuid4()))
 
 
 if __name__ == '__main__':

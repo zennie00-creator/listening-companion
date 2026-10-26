@@ -59,7 +59,7 @@ class Store:
             import psycopg
             from psycopg.rows import dict_row
             connection = psycopg.connect(self.url, row_factory=dict_row, connect_timeout=15)
-            connection.execute('BEGIN ISOLATION LEVEL REPEATABLE READ' + ('' if write else ' READ ONLY'))
+            connection.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ' + ('' if write else ' READ ONLY'))
         else:
             connection = sqlite3.connect(self.path, timeout=15, isolation_level=None)
             connection.row_factory = sqlite3.Row
