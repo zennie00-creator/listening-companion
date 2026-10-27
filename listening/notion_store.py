@@ -354,6 +354,32 @@ class NotionStore:
     def list(self, kind):
         return self._run('list', kind)
 
+    def diagnostics(self):
+        """Authenticated troubleshooting, never includes credentials or note text."""
+        with self._lock:
+            root = self.api.request('GET', 'pages/' + self.root)
+            blocks = self.api.children(self.root)
+            kinds = {}
+            pages = []
+            for block in blocks:
+                kind = block.get('type', 'unknown')
+                kinds[kind] = kinds.get(kind, 0) + 1
+                if kind == 'child_page':
+                    title = block.get('child_page', {}).get('title', '')
+                    pages.append({'id': block['id'], 'title': title,
+                                  'recognized': title.startswith(self.prefix)})
+            titles = root.get('properties', {}).get('title', {}).get('title', [])
+            result = {'backend': 'notion', 'pageId': self.root,
+                      'pageTitle': ''.join(t.get('plain_text', t.get('text', {}).get('content', '')) for t in titles),
+                      'blockTypes': kinds, 'childPages': pages, 'readerVersion': '2026-10-27-json-import'}
+            try:
+                head = self._head(force=True)
+                result['snapshotFound'] = bool(head)
+                result['records'] = {kind: len(self.list(kind)) for kind in KINDS}
+            except (ValueError, KeyError) as error:
+                result['error'] = str(error)
+            return result
+
     def get(self, kind, record_id):
         return self._run('get', kind, record_id)
 
