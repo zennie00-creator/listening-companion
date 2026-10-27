@@ -127,6 +127,27 @@ class UITests(unittest.TestCase):
             self.assertEqual(len(at.error), 0)
         self.assertEqual(NotionStore('', ROOT, api=api).list('note')[0]['content'], 'Notion 합성 테스트 감상')
 
+    def test_reader_code_update_replaces_old_cached_storage_object(self):
+        from test_notion import FakeNotion, ROOT
+        from listening.notion_store import NotionStore
+        old = NotionStore('', ROOT, api=FakeNotion())
+        fresh = NotionStore('', ROOT, api=FakeNotion())
+        fresh.save('note', {'content': '새 읽기 코드가 찾은 합성 기록'})
+        version = [b'reader version one']
+        original_read = Path.read_bytes
+        def source_bytes(path):
+            return version[0] if path.name == 'notion_store.py' else original_read(path)
+        env = {'LC_DEPLOYMENT_MODE': 'local', 'STORAGE_BACKEND': 'notion',
+               'NOTION_TOKEN': 'synthetic-cache-test-only', 'NOTION_PAGE_ID': ROOT}
+        with patch.dict(os.environ, env), patch.object(Path, 'read_bytes', source_bytes), patch('listening.notion_store.NotionStore', return_value=old) as factory:
+            at = self.AppTest.from_file(self.path, default_timeout=30).run()
+            self.assertFalse(any('새 읽기 코드가 찾은 합성 기록' in item.value for item in at.markdown))
+            version[0] = b'reader version two'
+            factory.return_value = fresh
+            at.run()
+            self.assertEqual(len(at.exception), 0)
+            self.assertTrue(any('새 읽기 코드가 찾은 합성 기록' in item.value for item in at.markdown))
+
 
 if __name__ == '__main__':
     unittest.main()
