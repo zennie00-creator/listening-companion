@@ -35,7 +35,7 @@ KINDS = ['감상 대화', '음악성', '녹음 품질', '내 시스템 재생', 
 
 
 @st.cache_resource
-def database(url, backend='postgres', notion_token='', notion_root=''):
+def database(url, backend='postgres', notion_token='', notion_root='', reader_version=''):
     return NotionStore(notion_token, notion_root) if backend == 'notion' else Store(url)
 
 
@@ -602,7 +602,7 @@ def backup_page(store):
         with st.expander('저장 연결 점검'):
             st.caption('연결된 페이지와 앱이 찾은 기록 수를 확인합니다. 토큰과 감상 원문은 표시하지 않습니다.')
             if st.button('저장 연결 상태 확인'):
-                st.json(store.diagnostics())
+                st.json(dict(store.diagnostics(), aiConfigured=bool(setting('OPENAI_API_KEY')), aiModel=setting('OPENAI_MODEL', 'gpt-4.1-mini')))
     if st.button('전체 백업 준비'):
         st.session_state['backup_download'] = store.export()
     if st.session_state.get('backup_download'):
@@ -648,7 +648,11 @@ def main():
             st.info('개인 기록 보호를 위한 앱 비밀번호 설정이 필요합니다. 배포 안내를 확인해 주세요.')
             st.stop()
     try:
-        store = database(url, backend, notion_token, notion_root)
+        # Imported reader modules can change without changing database() itself.
+        # Include their source in the resource key so deployments replace old readers.
+        source = ROOT / 'listening' / ('notion_store.py' if backend == 'notion' else 'store.py')
+        reader_version = hashlib.sha256(source.read_bytes()).hexdigest()
+        store = database(url, backend, notion_token, notion_root, reader_version=reader_version)
     except NotionError as error:
         st.error(str(error))
         st.stop()
