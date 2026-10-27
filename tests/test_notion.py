@@ -112,6 +112,19 @@ class NotionFailureTests(unittest.TestCase):
         other.import_backup(backup(), dry_run=False)
         self.assertEqual(len(self.api.pages), count)
 
+    def test_diagnostics_reports_actual_record_coverage_without_note_text(self):
+        empty = self.store.diagnostics()
+        self.assertFalse(empty['snapshotFound'])
+        self.assertEqual(empty['records']['note'], 0)
+        self.store.import_backup(backup(), dry_run=False)
+        report = self.store.diagnostics()
+        self.assertTrue(report['snapshotFound'])
+        self.assertEqual(report['records']['note'], 1)
+        self.assertEqual(report['blockTypes'], {'child_page': 1})
+        self.assertEqual(report['childPages'][0]['recognized'], True)
+        self.assertNotIn('긴 원문', json.dumps(report, ensure_ascii=False))
+        self.assertNotIn('Authorization', json.dumps(report))
+
     def test_preview_and_upload_failure_never_publish(self):
         self.store.import_backup(backup())
         self.assertEqual(len(self.api.pages), 0)

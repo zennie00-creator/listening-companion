@@ -446,6 +446,11 @@ def backup_page(store):
     st.title('내 기록은 내가 보관하기.')
     st.write('감상 원문·사진·수정 이력·청취 환경·청음 실험을 ZIP 한 파일로 내보내고 가져옵니다.')
     st.caption('백업에는 개인 기록이 들어 있습니다. GitHub에 올리지 않고 개인 보관함에 보관해 주세요.')
+    if hasattr(store, 'diagnostics'):
+        with st.expander('저장 연결 점검'):
+            st.caption('연결된 페이지와 앱이 찾은 기록 수를 확인합니다. 토큰과 감상 원문은 표시하지 않습니다.')
+            if st.button('저장 연결 상태 확인'):
+                st.json(store.diagnostics())
     if st.button('전체 백업 준비'):
         st.session_state['backup_download'] = store.export()
     if st.session_state.get('backup_download'):
