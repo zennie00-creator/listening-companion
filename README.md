@@ -1,9 +1,20 @@
+## Overview (English)
+
+**Listening Companion** is a personal listening-journal app for audiophiles, built with OpenAI Codex and running on Streamlit Community Cloud.
+
+- **What it does:** Records listening notes, photos, listening-room setups, and A/B listening tests, and finds albums through the Apple iTunes catalog and MusicBrainz.
+- **AI with verification:** The OpenAI API reads album-cover photos and plans searches, but every result is checked against real catalogs. Model-generated album IDs or URLs are never used.
+- **Privacy by default:** Personal notes go to the AI only when the user explicitly opts in. API keys are stored only in the app's secrets.
+- **Data safety:** Data is stored in Notion or PostgreSQL. Backup imports are checked for conflicts, missing photos, and damage before anything is written, and past entries are never overwritten.
+- **Engineering practice:** Changes go through pull requests. Automated tests run in GitHub Actions with mocked APIs and no real personal data.
+
+*Built by Jesung Jay Lee as a hands-on AI project. Detailed documentation below is in Korean.*
+
 # Listening Companion · Streamlit
 
 감상 원문·사진·청취 환경·청음 실험을 개인 기록으로 보관하는 **별도 Streamlit 앱**입니다. 기존 일지 에이전트와 저장소, 데이터, 앱 설정을 공유하지 않습니다.
 
 **Notion을 사용하는 첫 배포는 [NOTION_SETUP.md](NOTION_SETUP.md)를 따라 진행합니다.** 아래 PostgreSQL 안내는 대안입니다. GitHub Merge 후에도 첫 Streamlit 앱 생성은 별도로 해야 합니다.
-
 ## 운영 구조
 
 - GitHub `zennie00-creator/listening-companion`: 코드와 PR·Merge 이력.
