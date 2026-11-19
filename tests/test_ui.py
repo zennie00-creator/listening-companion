@@ -52,17 +52,38 @@ class UITests(unittest.TestCase):
 
     def test_recent_records_are_visible_on_home_and_open_in_editor(self):
         import io
+        import json
         from PIL import Image
         picture = io.BytesIO()
         Image.new('RGB', (4, 4), 'white').save(picture, format='JPEG')
         store = Store(self.url)
-        note = store.save('note', {'kind': '감상 대화', 'content': '기존 형식의 합성 감상 원문', 'photoKey': 'old-photo.jpg'}, photo=picture.getvalue())
+        snapshot = json.dumps({'name': '테스트 청음실', 'details': '당시 스피커 배치'})
+        note = store.save('note', {'kind': '감상 대화', 'content': '기존 형식의 합성 감상 원문',
+                                  'photoKey': 'old-photo.jpg', 'environmentSnapshot': snapshot}, photo=picture.getvalue())
         at = self.AppTest.from_file(self.path, default_timeout=30).run()
         self.assertEqual(len(at.exception), 0)
         self.assertTrue(any('기존 형식의 합성 감상 원문' in item.value for item in at.markdown))
-        next(w for w in at.button if w.label == '감상 보기·보완').click().run()
-        self.assertEqual(at.radio[0].value, '감상 기록')
-        self.assertEqual(next(w for w in at.text_area if w.label == '감상').value, note['content'])
+        setup = next(item for item in at.expander if item.label == '기록 당시 청취 환경 · 테스트 청음실')
+        self.assertEqual(setup.markdown[0].value, '당시 스피커 배치')
+        self.assertFalse(setup.proto.expanded)
+        for section in ('오늘의 음악', '감상 기록'):
+            at = self.AppTest.from_file(self.path, default_timeout=30).run()
+            if section != '오늘의 음악':
+                at.radio[0].set_value(section).run()
+            at.button(key='edit_' + note['id']).click().run()
+            self.assertEqual(at.radio[0].value, section)
+            dialog = at.get('dialog')[0]
+            field = next(w for w in dialog.text_area if w.label == '감상')
+            self.assertEqual(field.value, store.get('note', note['id'])['content'])
+            updated_text = section + '에서 보완한 감상'
+            field.set_value(updated_text)
+            next(w for w in dialog.button if w.label == '보완 내용 저장').click().run()
+            self.assertEqual(len(at.exception), 0)
+            self.assertNotIn('editing_note', at.session_state)
+            self.assertEqual(store.get('note', note['id'])['content'], updated_text)
+            self.assertEqual(store.get('note', note['id'])['environmentSnapshot'], snapshot)
+            self.assertEqual(store.photo(note['id'])[0], picture.getvalue())
+        self.assertIn(note['content'], [row['note']['content'] for row in store.revisions('note', note['id'])])
 
     def test_imported_array_scores_can_be_corrected_without_losing_original(self):
         import json

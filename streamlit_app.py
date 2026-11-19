@@ -91,7 +91,6 @@ def note_album(note):
 def choose_album(album):
     st.session_state['chosen_album'] = album
     st.session_state['pending_page'] = '감상 기록'
-    st.session_state['editing_note'] = None
     st.session_state['editor_version'] = st.session_state.get('editor_version', 0) + 1
     st.rerun()
 
@@ -188,12 +187,8 @@ def discover(store, notes, api_key, model):
                     for note in notes:
                         if note['id'] in album['basisIds']:
                             st.write(note.get('content', ''))
-                            if st.button('원문 보기·보완', key='basis_' + album['id'] + note['id']):
-                                st.session_state['editing_note'] = note['id']
-                                st.session_state['chosen_album'] = None
-                                st.session_state['editor_version'] = st.session_state.get('editor_version', 0) + 1
-                                st.session_state['pending_page'] = '감상 기록'
-                                st.rerun()
+                            st.button('원문 보기·보완', key='basis_' + album['id'] + note['id'],
+                                      on_click=open_note_editor, args=(note['id'],))
             columns = st.columns(3)
             for column, action, label in zip(columns, ['interested', 'known', 'skip'], ['관심 있어요', '이미 들어봤어요', '이번에는 건너뛰기']):
                 if column.button(label, key=action + album['id']):
@@ -288,7 +283,7 @@ def editorial_page(store):
             message('감상 방향을 원문과 날짜로 보존했습니다.')
 
 
-def search_panel(prefix, allow_choose=False, initial_query=''):
+def search_panel(prefix, allow_choose=False, initial_query='', album_key='chosen_album'):
     with st.form(prefix + '_search'):
         query = st.text_input('음반명 · 작품 · 아티스트', value=initial_query[:160], key=prefix + '_query', max_chars=160)
         provider = st.radio('검색할 카탈로그', ['Apple Music', 'MusicBrainz'], horizontal=True, key=prefix + '_provider')
@@ -306,36 +301,60 @@ def search_panel(prefix, allow_choose=False, initial_query=''):
             with st.container(border=True):
                 show_album(album)
                 if st.button('이 음반 정보 선택', key=prefix + album['id']):
-                    st.session_state['chosen_album'] = album
+                    st.session_state[album_key] = album
                     st.rerun()
 
 
-def journal(store, notes, environments, api_key, model, show_records=True):
-    st.caption('LISTENING JOURNAL')
-    st.subheader('감상 쓰기·보완')
-    selected_id = st.session_state.get('editing_note')
-    current = store.get('note', selected_id) if selected_id else None
-    editor = str(st.session_state.get('editor_version', 0)) + (selected_id or 'new')
+def reset_new_note():
+    st.session_state.pop('chosen_album', None)
+    st.session_state['editor_version'] = st.session_state.get('editor_version', 0) + 1
+
+
+def open_note_editor(note_id):
+    st.session_state['editing_note'] = note_id
+
+
+def close_note_editor():
+    st.session_state.pop('editing_note', None)
+    st.session_state.pop('edit_chosen_album', None)
+    st.session_state['edit_version'] = st.session_state.get('edit_version', 0) + 1
+
+
+@st.dialog('감상 보기·보완', width='large', on_dismiss=close_note_editor)
+def note_editor(store, environments, api_key, model, current):
+    if not current:
+        st.warning('이 감상을 불러올 수 없습니다. 목록을 새로고침한 뒤 다시 열어 주세요.')
+        return
+    try:
+        journal(store, environments, api_key, model, current=current)
+    except (Conflict, MusicError, NotionError) as error:
+        st.error(str(error))
+
+
+def journal(store, environments, api_key, model, current=None):
     if current:
+        editor = f"edit_{st.session_state.get('edit_version', 0)}_{current['id']}"
+        album_key = 'edit_chosen_album'
         st.caption('저장한 감상을 보완합니다. 원문과 이전 작성 내용은 이력에 남습니다.')
         old_photo = store.photo(current['id'])
         if old_photo:
             st.image(old_photo[0], width=280)
-    if st.button('새 감상 쓰기'):
-        st.session_state['editing_note'] = None
-        st.session_state['chosen_album'] = None
-        st.session_state['editor_version'] = st.session_state.get('editor_version', 0) + 1
-        st.rerun()
-    chosen = st.session_state.get('chosen_album') or (dict(note_album(current), id=current.get('albumId')) if current and note_album(current) else None)
+    else:
+        editor = str(st.session_state.get('editor_version', 0)) + 'new'
+        album_key = 'chosen_album'
+        old_photo = None
+        st.caption('LISTENING JOURNAL')
+        st.subheader('감상 쓰기·보완')
+        st.button('새 감상 쓰기', on_click=reset_new_note)
+    chosen = st.session_state.get(album_key) or (dict(note_album(current), id=current.get('albumId')) if current and note_album(current) else None)
     if chosen:
         with st.container(border=True):
             show_album(chosen)
     with st.expander('음반 찾기 · 선택 사항', expanded=False):
-        search_panel('journal_' + editor, initial_query=(current or {}).get('albumHint') or '')
+        search_panel('journal_' + editor, initial_query=(current or {}).get('albumHint') or '', album_key=album_key)
         if st.session_state.get('journal_' + editor + '_clue'):
             st.info(st.session_state['journal_' + editor + '_clue'])
         if api_key:
-            old_photo = store.photo(current['id']) if current else None
             if old_photo and st.button('첨부한 사진으로 음반 정보 확인', key='read_saved_' + editor):
                 try:
                     with st.spinner('저장한 사진에서 음반 후보를 찾고 있습니다…'):
@@ -402,9 +421,10 @@ def journal(store, notes, environments, api_key, model, show_records=True):
                 payload['photoKey'] = 'database-photo'
             store.save('note', payload, original.get('revision') if current else None,
                        photo=picture[0] if picture else None, photo_mime=picture[1] if picture else 'image/jpeg')
-            st.session_state['editing_note'] = None
-            st.session_state['chosen_album'] = None
-            st.session_state['editor_version'] = st.session_state.get('editor_version', 0) + 1
+            if current:
+                close_note_editor()
+            else:
+                reset_new_note()
             message('감상을 저장했습니다. 원문과 수정 이력을 함께 보관합니다.')
         except (ValueError, OSError) as error:
             st.error(str(error))
@@ -415,8 +435,6 @@ def journal(store, notes, environments, api_key, model, show_records=True):
                 for field in ('content', 'musicalNotes', 'sonicNotes', 'listeningContext'):
                     if history['note'].get(field):
                         st.write(history['note'][field])
-    if show_records:
-        recent_notes(store, notes)
 
 
 def recent_notes(store, notes):
@@ -429,7 +447,6 @@ def recent_notes(store, notes):
     for note in notes:
         if query and query.casefold() not in ' '.join(str(note.get(k) or '') for k in ('content', 'albumTitle', 'albumArtists', 'albumHint', 'musicalNotes', 'sonicNotes')).casefold():
             continue
-        title = note.get('albumTitle') or note.get('albumHint') or note.get('kind', '감상')
         with st.container(border=True):
             st.caption((note.get('kind') or '감상') + ' · ' + note.get('createdAt', '')[:10])
             album = note_album(note)
@@ -446,15 +463,12 @@ def recent_notes(store, notes):
                     st.markdown('**' + label + '**')
                     st.write(note[field])
             snapshot = parse(note.get('environmentSnapshot'))
-            if snapshot:
-                st.caption('기록 당시 청취 환경 · ' + snapshot.get('name', ''))
-                st.write(snapshot.get('details', ''))
-            if st.button('감상 보기·보완', key='edit_' + note['id']):
-                st.session_state['pending_page'] = '감상 기록'
-                st.session_state['editing_note'] = note['id']
-                st.session_state['chosen_album'] = None
-                st.session_state['editor_version'] = st.session_state.get('editor_version', 0) + 1
-                st.rerun()
+            if isinstance(snapshot, dict) and snapshot:
+                name = snapshot.get('name')
+                with st.expander(f'기록 당시 청취 환경 · {name}' if name else '기록 당시 청취 환경'):
+                    st.write(snapshot.get('details') or '기록된 장비·공간 세부 정보가 없습니다.')
+            st.button('감상 보기·보완', key='edit_' + note['id'],
+                      on_click=open_note_editor, args=(note['id'],))
 
 
 def environment_page(store, environments):
@@ -702,7 +716,7 @@ def main():
                 if page == '오늘의 음악':
                     discover(store, notes, api_key, model)
                 elif page == '감상 기록':
-                    journal(store, notes, environments, api_key, model, show_records=False)
+                    journal(store, environments, api_key, model)
                 else:
                     st.subheader('지금의 취향을 남겨주세요.')
                     with st.form('taste'):
@@ -714,6 +728,8 @@ def main():
             with aside:
                 st.markdown('''<aside class="lc-principles"><small>OUR LISTENING NOTES</small><h2>같은 음반,<br>서로 다른 기준.</h2><div><b>01　음악성</b><p>해석, 흐름, 긴장감과 연주의 설득력.</p></div><div><b>02　녹음 품질</b><p>홀톤, 공기감, 악기 질감과 균형.</p></div><div><b>03　내 시스템 재생</b><p>나의 공간과 오디오에서 느끼는 감상.</p></div><p>아직 평가하지 않은 항목은 비워 둡니다. 한 번의 기분으로 평생의 취향을 정하지 않습니다.</p></aside>''', unsafe_allow_html=True)
             recent_notes(store, [n for n in notes if n.get('kind') == '취향'] if page == '나의 취향' else notes)
+            if note_id := st.session_state.get('editing_note'):
+                note_editor(store, environments, api_key, model, store.get('note', note_id))
         elif page == '청취 환경':
             environment_page(store, environments)
         elif page == '청음 실험':
